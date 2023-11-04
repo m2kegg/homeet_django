@@ -41,40 +41,41 @@
                     <div class="avatar">
                         <div class="text_button_avatar">
                             <p class="p_avatar">Аватар профиля</p>
-                            <button class="button_upload">
+                            <button class="button_upload" id="upload-button">
                                 <p class="text_upload">Загрузить</p>
                             </button>
+                            <input type="file" id="file-input" style="display: none;">
+                            <script>
+                                document.getElementById('upload-button').addEventListener('click', function() {
+                                    document.getElementById('file-input').click();
+                                });
+                            </script>
                         </div>
                         <p class="text_upload_warn">Загрузите фотографию весом не более 10 Мб</p>
                     </div>
-                    <form class="form1">
+                    <form class="form1" method="post">
+                        {% csrf_token %}
                         <div class="div_name_surname">
-                            <input type="text" id="name_surname" class="input_name_surname" placeholder="">
+
+                            {{ form.name_surname }}
                             <label for="name_surname" class="label">Имя и фамилия</label>
                             <div class="div_radio_sex">
-                                <label class="text_sex">  
-                                    <input type="radio" name="sex" id="sex1" value="Мужской">
-                                    Парень
-                                </label>
-                                <label class="text_sex">
-                                    <input type="radio" name="sex" id="sex2" value="Женский">
-                                    Девушка
-                                </label>
+                                {{ form.sex }}
                             </div>
                         </div>
                         <div class="div_inputs">
-                            <input type="date" class="input_date" id="input_tgm" placeholder="">
+                            {{ form.date_birth }}
                         </div>
                         <div class="div_inputs">
-                            <input type="text" id="tg" class="input_name_surname" placeholder="">
+                            {{ form.telegram }}
                             <label for="tg" class="label">Телеграм</label>
                         </div>
                         <div class="div_inputs">
-                            <input type="tel" id="number" class="input_name_surname" placeholder="">
+                            {{ form.phone }}
                             <label for="number" class="label">Номер телефона</label>
                         </div>
                         <div class="div_about">
-                            <textarea id="about" class="input_about" id="input_text_about" placeholder=""></textarea>
+                            {{ form.about_yourself }}
                             <label for="about" class="label">О себе</label>
                             <p class="p_about">Например: Редко готовлю, но люблю ботать на кухне по ночам. Хочу завести собаку. Очень люблю читать, играть в хорроры и смотреть аниме. Открыт к общению и взаимопомощи :)</p>
                         </div>

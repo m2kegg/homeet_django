@@ -1,21 +1,35 @@
 from django import forms
 
+
 class RadioSelectSex(forms.RadioSelect):
+    template_name = 'homeet_django_app/widgets/widget_radio.html'
+
     def create_option(
-        self, name, value, label, selected, index, subindex=None, attrs=None
+            self, name, value, label, selected, index, subindex=None, attrs=None
     ):
-        option = super().create_option(self, name, value, label, selected, index, subindex=subindex, attrs=attrs)
+        option = super().create_option(self, name, value, label, selected, index)
         option['attrs']['id'] = f'{value}'
+        if value=='sex1':
+            option['label'] = "Парень"
+        else:
+            option['label'] = "Девушка"
+        return option
 
 
-CHOICES =[('sex1', "Парень"), ('sex2', "Девушка")]
+CHOICES = [('sex1', "Парень"), ('sex2', "Девушка")]
+
+
 class StudentForm(forms.Form):
-    name_surname = forms.CharField(widget=forms.TextInput(attrs={'class': 'input_name_surname', 'id':'name_surname', 'placeholder':''}))
-    sex = forms.ChoiceField(widget=RadioSelectSex,choices=CHOICES)
-    date_birth = forms.DateField(widget=forms.DateInput(attrs={'class': 'input_date', 'type':'date', }))
-    telegram = forms.CharField(widget=forms.TextInput(attrs={'class':'input_name_surname', 'id':'rg', 'placeholder':''}))
-    phone = forms.CharField(widget=forms.TextInput(attrs={'class': 'input_name_surname', 'id':'number', 'placeholder':''}))
-    about_yourself = forms.CharField(widget=forms.Textarea(attrs={'class': 'input_about', 'id':'about', 'placeholder':''}))
+    name_surname = forms.CharField(
+        widget=forms.TextInput(attrs={'class': 'input_name_surname', 'id': 'name_surname', 'placeholder': ''}))
+    sex = forms.ChoiceField(widget=RadioSelectSex(attrs={'class': 'div_radio_sex'}), choices=CHOICES)
+    date_birth = forms.DateField(widget=forms.DateInput(attrs={'class': 'input_date', 'type': 'date', 'id':'input_tgm'}))
+    telegram = forms.CharField(
+        widget=forms.TextInput(attrs={'class': 'input_name_surname', 'id': 'tg', 'placeholder': ''}))
+    phone = forms.CharField(
+        widget=forms.TextInput(attrs={'class': 'input_name_surname', 'id': 'number', 'placeholder': ''}))
+    about_yourself = forms.CharField(
+        widget=forms.Textarea(attrs={'class': 'input_about', 'id': 'about', 'placeholder': ''}))
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)

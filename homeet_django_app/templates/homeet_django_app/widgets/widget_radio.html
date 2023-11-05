@@ -1,0 +1,13 @@
+<div class="div_radio_sex">
+    {% for group, options, index in widget.optgroups %}
+        {% if group %}
+            <label>{{ group }}</label>
+        {% endif %}
+            {% for option in options %}
+                <div class="div_radio_sex">
+                    <input id="{{ option.attrs.id }}" type="radio" name="{{ widget.name }}" value="{{ option.value|stringformat:'s' }}" {% if option.attrs.selected %}checked{% endif %} />
+                    <label for="{{ option.attrs.id }}"><p class="text_sex">{{ option.label }}</p></label>
+                </div>
+            {% endfor %}
+    {% endfor %}
+</div>

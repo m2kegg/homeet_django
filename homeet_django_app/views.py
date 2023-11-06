@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from .forms import StudentForm
+from .forms import StudentForm, LearnForm
 
 forms = 0
 
@@ -10,7 +10,11 @@ def reg_view(request):
         form_text = 'form1'
         forms += 1
     elif request.method == 'POST' and forms == 1:
-
+        form = LearnForm(request.POST)
+        form_text = 'form2'
+    elif forms == 1:
+        form = LearnForm()
+        form_text = 'form2'
     else:
         form = StudentForm()
         form_text = 'form1'

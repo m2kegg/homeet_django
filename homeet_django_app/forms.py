@@ -15,9 +15,23 @@ class RadioSelectSex(forms.RadioSelect):
             option['label'] = "Девушка"
         return option
 
+class RadioSelectStud(forms.RadioSelect):
+    template_name = 'homeet_django_app/widgets/widget_radio.html'
+
+    def create_option(
+            self, name, value, label, selected, index, subindex=None, attrs=None
+    ):
+        option = super().create_option(self, name, value, label, selected, index)
+        option['attrs']['id'] = f'{value}'
+        if value=='stud1':
+            option['label'] = "Студент/выпускник"
+        else:
+            option['label'] = "Работающий"
+        return option
+
 
 CHOICES = [('sex1', "Парень"), ('sex2', "Девушка")]
-
+CHOICES2 = [('stud1', "Студент/выпускник"), ('stud2', "Работающий")]
 
 class StudentForm(forms.Form):
     name_surname = forms.CharField(
@@ -37,3 +51,6 @@ class StudentForm(forms.Form):
         # self.fields['date_birth'].label = 'Дата рождения'
         # self.fields['phone'].label = 'Номер телефона'
         # self.fields['about_yourself'].label = 'О себе'
+
+class LearnForm(forms.Form):
+    stud_sotr = forms.ChoiceField(widget=RadioSelectStud(attrs={'class':'div_student_vipusk'}), choices=CHOICES2)

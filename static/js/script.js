@@ -214,7 +214,7 @@ button.addEventListener('click', function(e){
     let oldDiv = document.getElementById("column_one");
     let newDiv = document.createElement('div');
     newDiv.innerHTML = 
-    `<form class="form1">
+    `<form class="form2">
     <div class="div_student_vipusk">
         <label class="text_sex">
             <input type="radio" name="stud" id="stud1" value="Студент/Выпускник">
@@ -371,6 +371,22 @@ button.addEventListener('click', function(e){
 
         let stud1 = document.getElementById("stud");
         stud1.addEventListener("input", function(e){
+            if (e.target.value === "Бакалавриат"){
+                k5.setAttribute("disabled", "")
+                k6.setAttribute("disabled", "")
+            }
+            else if (e.target.value === "Магистратура"){
+                k3.setAttribute("disabled", "")
+                k4.setAttribute("disabled", "")
+                k5.setAttribute("disabled", "")
+                k6.setAttribute("disabled", "")
+            }
+            else {
+                k3.removeAttribute("disabled")
+                k4.removeAttribute("disabled")
+                k5.removeAttribute("disabled")
+                k6.removeAttribute("disabled")
+            }
             obj.stud = e.target.value;
             reload();
         });
